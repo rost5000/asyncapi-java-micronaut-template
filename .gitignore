@@ -258,3 +258,4 @@ fabric.properties
 /tests/temp/integrationTestResult/
 /package-lock.json
 /.idea
+.idea
