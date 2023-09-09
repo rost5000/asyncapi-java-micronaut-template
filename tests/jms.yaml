@@ -1,0 +1,54 @@
+asyncapi: '2.5.0'
+info:
+  title: Streetlights API
+  version: '1.0.0'
+  description: |
+    The Smartylighting Streetlights API allows you
+    to remotely manage the city lights.
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+
+servers:
+  production:
+    url: kafka.bootstrap
+    protocol: jms
+    bindings:
+      jmsConnectionFactory: jms-connection
+
+channels:
+  event.lighting.measured:
+#    servers:
+#      - production
+    publish:
+      bindings:
+        jms:
+          destination: user-sign-up
+          destinationType: fifo-queue
+          bindingVersion: '0.0.1'
+      message:
+        $ref: '#/components/messages/lightMeasured'
+    subscribe:
+      operationId: updateLightMeasurement
+      message:
+        $ref: '#/components/messages/lightMeasured'
+components:
+  messages:
+    lightMeasured:
+      summary: Inform about environmental lighting conditions for a particular streetlight.
+      payload:
+        $ref: "#/components/schemas/lightMeasuredPayload"
+  schemas:
+    lightMeasuredPayload:
+      type: object
+      properties:
+        lumens:
+          type: integer
+          minimum: 0
+          description: Light intensity measured in lumens.
+        sentAt:
+          $ref: "#/components/schemas/sentAt"
+    sentAt:
+      type: string
+      format: date-time
+      description: Date and time when the message was sent.

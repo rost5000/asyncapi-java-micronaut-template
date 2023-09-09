@@ -1,0 +1,46 @@
+{
+  "name": "java-micronaut-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --modulePathIgnorePatterns='./template' --silent=false",
+    "lint": "echo \"No linter specified yet\"",
+    "generate:assets": "echo 'No additional assets need to be generated at the moment'",
+    "bump:version": "npm --no-git-tag-version --allow-same-version version $VERSION"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@asyncapi/generator-hooks": "^0.1.0",
+    "@asyncapi/generator-filters": "^2.1.0",
+    "unzip-stream": "^0.3.1",
+    "tmp": "^0.2.1",
+    "fs-extra": "^9.0.0"
+  },
+  "devDependencies": {
+    "@asyncapi/generator": "^1.11.0",
+    "jest": "^29.6.4"
+  },
+  "generator" : {
+    "filters": [
+      "@asyncapi/generator-filters"
+    ],
+    "hooks": {
+      "@asyncapi/generator-hooks": "createAsyncapiFile"
+    },
+    "parameters": {
+      "defaultImplementaion": {
+        "description": "Generate implementation of the subscriber interfaces by default.",
+        "default": "true",
+        "required": false
+      },
+      "javaPackage": {
+        "description": "The Java package of the generated classes. Alternatively you can set the specification extension info.x-java-package",
+        "default": "com.asyncapi",
+        "required": false
+      }
+    }
+  }
+}
