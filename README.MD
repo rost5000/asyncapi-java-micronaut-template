@@ -32,6 +32,10 @@ Complete example of JMS usage [here](./tests/jms.yaml)
     -p, --param <name=value>       additional param to pass to templates
     -h, --help                    output usage information
 ```
+Example command: 
+```bash
+ asyncapi generate fromTemplate jms.yaml https://github.com/rost5000/asyncapi-java-micronaut-template.git
+```
 
 | Name                 | Description                                                                                                          | Required | Default      |
 |----------------------|----------------------------------------------------------------------------------------------------------------------|----------|--------------|
