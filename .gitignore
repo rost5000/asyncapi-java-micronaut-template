@@ -257,3 +257,4 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/node,phpstorm
 /tests/temp/integrationTestResult/
 /package-lock.json
+/.idea
