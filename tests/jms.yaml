@@ -35,6 +35,12 @@ channels:
 components:
   messages:
     lightMeasured:
+      headers:
+        required:
+          - test_header
+        properties:
+          test_header:
+            type: string
       summary: Inform about environmental lighting conditions for a particular streetlight.
       payload:
         $ref: "#/components/schemas/lightMeasuredPayload"

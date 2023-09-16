@@ -10,7 +10,8 @@ public static final class ImplOf{{serverName | camelCase | upperFirst}}Consumer 
          {%- set typeName = channel.publish().message().payload().uid() | camelCase | upperFirst %}
          @Override
          public void {{channel.subscribe().id() | camelCase}}(
-           {{typeName}} data
+           {{typeName}} data{%- for propName, prop in channel.publish().message().headers().properties() %}{%- if prop.type() == 'string' or prop.type() == 'integer' %},
+           {% if prop.type() === 'string'%}String{% elif prop.type() === 'integer' %}Integer{% endif %} {{propName | camelCase}}Header{%- endif %}{%- endfor %}
          ) {
          logger.warning("The method {{channel.subscribe().id() | camelCase}} is not implemented");
          }

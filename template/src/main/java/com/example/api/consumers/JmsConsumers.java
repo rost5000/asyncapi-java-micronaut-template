@@ -4,6 +4,7 @@
 package {{ params['userJavaPackage'] }}.api.consumers;
 
 
+import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.jms.annotations.JMSListener;
 import io.micronaut.jms.annotations.Queue;
 import io.micronaut.messaging.annotation.MessageBody;

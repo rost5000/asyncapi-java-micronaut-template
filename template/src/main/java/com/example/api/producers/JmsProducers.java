@@ -2,7 +2,7 @@ package {{ params['userJavaPackage'] }}.api.producers;
 
 {%- from "partials/JmsProducer.java" import jmsProducer -%}
 
-
+import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.jms.annotations.JMSProducer;
 import io.micronaut.jms.annotations.Queue;
 import io.micronaut.messaging.annotation.MessageBody;
