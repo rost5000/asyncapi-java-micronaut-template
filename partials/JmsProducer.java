@@ -9,7 +9,7 @@ public interface {{serverName | camelCase | upperFirst}}Producer{
        {% if channel.publish().binding('jms') and channel.publish().binding('jms').destination | isDefined %}
        @Queue(
          value = "{{channel.publish().binding('jms').destination}}",
-         executors = "{{server | getExecutorService}}"
+         executor = "{{server | getExecutorService}}"
        ){% else %}
        @Queue(
          value = "{{channelName}}",

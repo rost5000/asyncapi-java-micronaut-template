@@ -15,7 +15,7 @@ public static final class {{serverName | camelCase | upperFirst}}JmsConsumer {
          {% if channel.subscribe().binding('jms') and channel.subscribe().binding('jms').destination | isDefined %}
          @Queue(
            value = "{{channel.subscribe().binding('jms').destination}}",
-           executors = "{{server | getExecutorService}}"
+           executor = "{{server | getExecutorService}}"
          )
          {% else %}
          @Queue(
