@@ -20,7 +20,7 @@ public static final class {{serverName | camelCase | upperFirst}}JmsConsumer {
          {% else %}
          @Queue(
            value = "{{channelName}}",
-           executors = "{{server | getExecutorService}}"
+           executor = "{{server | getExecutorService}}"
          )
          {% endif %}
          void {{channel.subscribe().id() | camelCase}}(

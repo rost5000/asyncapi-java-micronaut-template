@@ -13,7 +13,7 @@ public interface {{serverName | camelCase | upperFirst}}Producer{
        ){% else %}
        @Queue(
          value = "{{channelName}}",
-         executors = "{{server | getExecutorService}}"
+         executor = "{{server | getExecutorService}}"
        ){% endif %}
        void {{channel.publish().id() | camelCase}}(
          @MessageBody {{typeName}} data{%- for propName, prop in channel.publish().message().headers().properties() %}{%- if prop.type() == 'string' or prop.type() == 'integer' %},
