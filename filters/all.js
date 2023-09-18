@@ -184,9 +184,11 @@ function addBackSlashToPattern(val) {
 filter.addBackSlashToPattern = addBackSlashToPattern;
 
 function getExecutorService(server) {
-    for (const prop of server.bindings().properties) {
-        if(prop.name === 'serviceExecutor'){
-            return prop.value
+    if(isDefined(server.bindings().properties)) {
+        for (const prop of server.bindings().properties) {
+            if (prop.name === 'serviceExecutor') {
+                return prop.value
+            }
         }
     }
     return ""
