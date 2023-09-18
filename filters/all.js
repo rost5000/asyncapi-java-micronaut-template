@@ -183,14 +183,13 @@ function addBackSlashToPattern(val) {
 }
 filter.addBackSlashToPattern = addBackSlashToPattern;
 
-function getConnectionFactory(server) {
-    return server._json.bindings.jmsConnectionFactory;
+function getExecutorService(server) {
+    for (const prop of server.bindings().properties) {
+        if(prop.name === 'serviceExecutor'){
+            return prop.value
+        }
+    }
+    return ""
 }
 
-filter.getConnectionFactory = getConnectionFactory;
-
-function serverContainsInChannel(serverName, channel) {
-    return true;
-}
-
-filter.channelContainServer = serverContainsInChannel;
+filter.getExecutorService = getExecutorService

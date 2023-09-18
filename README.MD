@@ -42,6 +42,19 @@ Example command:
 | defaultImplementaion | Generate implementation of the subscriber interfaces by default.                                                     | false    | true         |
 | javaPackage          | The Java package of the generated classes. Alternatively you can set the specification extension info.x-java-package | false    | com.asyncapi |
 
+## Micronaut specific properties
+You can specify `serviceExecutor` property for generating service executor for queue listener. For example:
+```yaml
+servers:
+  production:
+# ...
+    bindings:
+# ...
+      properties:
+        - name: serviceExecutor
+          value: serviceExecutor
+```
+It is needed sometimes for micronaut [Queue](https://micronaut-projects.github.io/micronaut-jms/1.0.x/api/io/micronaut/jms/annotations/Queue.html#executor--) annotation.
 ## Additional links
 - [AsyncAPI](https://www.asyncapi.com/docs)
 - How to generate code from [AsyncAPI CLI](https://www.asyncapi.com/docs/tools/cli/usage#asyncapi-generate)

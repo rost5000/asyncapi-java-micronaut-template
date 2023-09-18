@@ -15,6 +15,9 @@ servers:
     protocol: jms
     bindings:
       jmsConnectionFactory: jms-connection
+      properties:
+        - name: serviceExecutor
+          value: serviceExecutor
 
 channels:
   event.lighting.measured:

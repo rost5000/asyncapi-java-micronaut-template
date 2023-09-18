@@ -1,6 +1,6 @@
 {% macro jmsConsumer(asyncapi, server, serverName) %}
 
-@JMSListener("{{- server | getConnectionFactory }}")
+@JMSListener("{{- server.bindings().jmsConnectionFactory}}")
 public static final class {{serverName | camelCase | upperFirst}}JmsConsumer {
 
     private final {{serverName | camelCase | upperFirst}}Consumer consumer;
@@ -13,9 +13,15 @@ public static final class {{serverName | camelCase | upperFirst}}JmsConsumer {
          {%- set typeName = channel.subscribe().message().payload().uid() | camelCase | upperFirst %}
          {%- if channel.subscribe().deprecated %}@Deprecated{%- endif %}
          {% if channel.subscribe().binding('jms') and channel.subscribe().binding('jms').destination | isDefined %}
-         @Queue("{{channel.subscribe().binding('jms').destination}}")
+         @Queue(
+           value = "{{channel.subscribe().binding('jms').destination}}",
+           executors = "{{server | getExecutorService}}"
+         )
          {% else %}
-         @Queue("{{channelName}}")
+         @Queue(
+           value = "{{channelName}}",
+           executors = "{{server | getExecutorService}}"
+         )
          {% endif %}
          void {{channel.subscribe().id() | camelCase}}(
            @MessageBody {{typeName}} data{%- for propName, prop in channel.subscribe().message().headers().properties() %}{%- if prop.type() == 'string' or prop.type() == 'integer' %},
