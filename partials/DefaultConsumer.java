@@ -1,7 +1,7 @@
-{% macro defaultConsumer(asyncapi, serverName) %}
+{% macro defaultConsumer(asyncapi, serverName, params) %}
 
 @jakarta.inject.Singleton
-public static final class ImplOf{{serverName | camelCase | upperFirst}}Consumer implements {{serverName | camelCase | upperFirst}}Consumer{
+public final class ImplOf{{serverName | camelCase | upperFirst}}Consumer implements {{serverName | camelCase | upperFirst}}Consumer{
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JmsConsumers.class.getName());
 
     {% for channelName, channel in asyncapi.channels() %}

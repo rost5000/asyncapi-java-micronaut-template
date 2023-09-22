@@ -24,5 +24,20 @@ describe('template integration tests for generated files using the generator and
         );
         await generator.generateFromFile(path.resolve('tests', jmsExamplePath));
     });
+    it('generate config without consumer and producers for provided jms', async() => {
+        const outputDir = generateFolderName();
+        const jmsExamplePath = './jms.yaml'
+        const params = {
+            "javaPackage": "com.example",
+            "generateConsumers": false,
+            "generateProducers": false
+        };
+        const generator = new Generator(
+            path.normalize('./'),
+            outputDir,
+            {forceWrite: true, templateParams: params}
+        );
+        await generator.generateFromFile(path.resolve('tests', jmsExamplePath));
+    });
 
 });

@@ -1,7 +1,7 @@
-{% macro jmsConsumer(asyncapi, server, serverName) %}
+{% macro jmsConsumer(asyncapi, server, serverName, params) %}
 
 @JMSListener("{{- server.bindings().jmsConnectionFactory}}")
-public static final class {{serverName | camelCase | upperFirst}}JmsConsumer {
+public final class {{serverName | camelCase | upperFirst}}JmsConsumer {
 
     private final {{serverName | camelCase | upperFirst}}Consumer consumer;
 

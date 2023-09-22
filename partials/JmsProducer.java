@@ -1,4 +1,4 @@
-{% macro jmsProducer(asyncapi, server, serverName) %}
+{% macro jmsProducer(asyncapi, server, serverName, params) %}
 
 @JMSProducer("{{- server.bindings().jmsConnectionFactory}}")
 public interface {{serverName | camelCase | upperFirst}}Producer{

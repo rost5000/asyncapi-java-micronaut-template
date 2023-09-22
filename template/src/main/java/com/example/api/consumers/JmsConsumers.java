@@ -1,44 +1,25 @@
 {%- from "partials/JmsConsumer.java" import jmsConsumer -%}
 {%- from "partials/Consumer.java" import consumer -%}
 {%- from "partials/DefaultConsumer.java" import defaultConsumer -%}
+{%- from "partials/GenerateImportsForConsumers.java" import generateImportsForConsumers -%}
+
 package {{ params['userJavaPackage'] }}.api.consumers;
 
-
-import io.micronaut.messaging.annotation.MessageHeader;
-import io.micronaut.jms.annotations.JMSListener;
-import io.micronaut.jms.annotations.Queue;
-import io.micronaut.messaging.annotation.MessageBody;
-
-{% for channelName, channel in asyncapi.channels() %}
-    {%- if channel.hasSubscribe() %}
-        {%- for message in channel.subscribe().messages() %}
-import {{ params['userJavaPackage'] }}.models.{{message.payload().uid() | camelCase | upperFirst}};
-        {%- endfor %}
-    {%- endif %}
-{%- endfor %}
+{{- generateImportsForConsumers(asyncapi) -}}
 
 public final class JmsConsumers {
+  {%- if params['generateConsumers'] %}
+  {%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}
+  static {{-  jmsConsumer(asyncapi, server, serverName, params)  -}}
+  {%- endif -%}{%- endfor -%}
 
+  {%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}
+  static {{-  consumer(asyncapi, serverName, params)  -}}
+  {%- endif -%}{%- endfor -%}
 
-
-  {%- for serverName, server in asyncapi.servers() -%}
-  {%- if server.protocol() == 'jms' -%}
-  {{-  jmsConsumer(asyncapi, server, serverName)  -}}
-  {%- endif -%}
-  {%- endfor -%}
-
-  {%- for serverName, server in asyncapi.servers() -%}
-  {%- if server.protocol() == 'jms' -%}
-  {{-  consumer(asyncapi, serverName)  -}}
-  {%- endif -%}
-  {%- endfor -%}
-
-  {%- if params['defaultImplementaion'] -%}
-  {%- for serverName, server in asyncapi.servers() -%}
-  {%- if server.protocol() == 'jms' -%}
-  {{-  defaultConsumer(asyncapi, serverName)  -}}
-  {%- endif -%}
-  {%- endfor -%}
-  {%- endif -%}
+  {%- if params['defaultImplementaion'] -%}{%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}
+  static {{-  defaultConsumer(asyncapi, serverName, params)  -}}
+  {%- endif -%}{%- endfor -%}{%- endif -%}
+  {%- endif %}
 
 }

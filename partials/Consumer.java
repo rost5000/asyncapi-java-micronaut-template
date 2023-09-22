@@ -1,4 +1,4 @@
-{% macro consumer(asyncapi, serverName) %}
+{% macro consumer(asyncapi, serverName, params) %}
 
 
 public interface {{serverName | camelCase | upperFirst}}Consumer {

@@ -40,6 +40,16 @@
         "description": "The Java package of the generated classes. Alternatively you can set the specification extension info.x-java-package",
         "default": "com.asyncapi",
         "required": false
+      },
+      "generateConsumers": {
+        "description": "Tell generator to generate consumers",
+        "default": true,
+        "required": false
+      },
+      "generateProducers": {
+        "description": "Tell generator to generate producers",
+        "default": true,
+        "required": false
       }
     }
   }
