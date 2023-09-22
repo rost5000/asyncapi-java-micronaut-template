@@ -8,7 +8,7 @@ package {{ params['userJavaPackage'] }}.api.consumers;
 {{- generateImportsForConsumers(asyncapi, params) -}}
 
 public final class JmsConsumers {
-  {%- if params['generateConsumers'] %}
+  {%- if params['generateConsumers'] and params['generateConsumers'] !== 'false' %}
   {%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}
   static {{-  jmsConsumer(asyncapi, server, serverName, params)  -}}
   {%- endif -%}{%- endfor -%}

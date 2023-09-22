@@ -5,6 +5,7 @@ public interface {{serverName | camelCase | upperFirst}}Consumer {
 
     {% for channelName, channel in asyncapi.channels() %}
     {% if channel.hasSubscribe() %}
+    {%- if channel.subscribe().deprecated or  channel.subscribe().deprecated === 'true' %}@Deprecated{%- endif %}
     {% if (serverName in channel.servers()) or (channel.servers() | isArrayDefinedOrEmpty) %}
          {%- set typeName = channel.subscribe().message().payload().uid() | camelCase | upperFirst %}
          {%- if channel.subscribe().deprecated %}@Deprecated{%- endif %}

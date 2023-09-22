@@ -6,7 +6,9 @@ package {{ params['userJavaPackage'] }}.api.producers;
 {{- generateImportsForProducers(asyncapi, params) -}}
 
 public final class JmsProducers {
-  {%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}{%- if params['generateProducers']%}
+  {%- if params['generateProducers'] and params['generateProducers'] !== 'false' %}
+  {%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}
   static {{-  jmsProducer(asyncapi, server, serverName, params)  -}}
-  {%- endif %}{%- endif -%}{%- endfor -%}
+  {%- endif %}{%- endfor -%}
+  {%- endif -%}
 }

@@ -30,7 +30,7 @@ describe('template integration tests for generated files using the generator and
         const params = {
             "javaPackage": "com.example",
             "generateConsumers": false,
-            "generateProducers": false
+            "generateProducers": 'false'
         };
         const generator = new Generator(
             path.normalize('./'),
