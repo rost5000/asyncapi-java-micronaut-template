@@ -5,7 +5,7 @@
 
 package {{ params['userJavaPackage'] }}.api.consumers;
 
-{{- generateImportsForConsumers(asyncapi) -}}
+{{- generateImportsForConsumers(asyncapi, params) -}}
 
 public final class JmsConsumers {
   {%- if params['generateConsumers'] %}

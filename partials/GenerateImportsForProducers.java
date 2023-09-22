@@ -1,4 +1,4 @@
-{% macro generateImportsForProducers(asyncapi) %}
+{% macro generateImportsForProducers(asyncapi, params) %}
 
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.jms.annotations.JMSProducer;

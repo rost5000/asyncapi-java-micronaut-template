@@ -3,7 +3,7 @@ package {{ params['userJavaPackage'] }}.api.producers;
 {%- from "partials/JmsProducer.java" import jmsProducer -%}
 {%- from "partials/GenerateImportsForProducers.java" import generateImportsForProducers -%}
 
-{{- generateImportsForProducers(asyncapi) -}}
+{{- generateImportsForProducers(asyncapi, params) -}}
 
 public final class JmsProducers {
   {%- for serverName, server in asyncapi.servers() -%}{%- if server.protocol() == 'jms' -%}{%- if params['generateProducers']%}
