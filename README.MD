@@ -56,6 +56,36 @@ servers:
           value: serviceExecutor
 ```
 It is needed sometimes for micronaut [Queue](https://micronaut-projects.github.io/micronaut-jms/1.0.x/api/io/micronaut/jms/annotations/Queue.html#executor--) annotation.
+## Declare channel from environment variables
+Sometimes you need to specify channel from environment variables. You can just do it by specifed `destination` property in `bindigns. For example:
+```yaml
+channels:
+  WhoCaresChannelName:
+    bindings:
+      jms:
+        destination: ${JMS_CHANNEL:OrOtherChannelName}
+# ...
+```
+All String will put from `destination` to [`Queue#value`](https://micronaut-projects.github.io/micronaut-jms/1.0.x/api/io/micronaut/jms/annotations/Queue.html#value--). And resulted code looks like:
+```java
+@Queue(
+  value = "${JMS_CHANNEL:OrOtherChannelName}"
+)
+```
+You can specify exactly in `channel` or `publish`, for example:
+```yaml
+channels:
+  NoName:
+    publish:
+      bindings:
+        jms:
+          destination: ${JMS_CHANNEL_PUBLISHER}
+# ...
+    subscribe:
+      bindings:
+        jms:
+          destination: ${JMS_CHANNEL_SUBSCRIBER}
+```
 ## Additional links
 - [AsyncAPI](https://www.asyncapi.com/docs)
 - How to generate code from [AsyncAPI CLI](https://www.asyncapi.com/docs/tools/cli/usage#asyncapi-generate)

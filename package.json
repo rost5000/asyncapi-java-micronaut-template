@@ -1,5 +1,5 @@
 {
-  "name": "java-micronaut-template",
+  "name": "@rost5000/asyncapi-java-micronaut-template",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
